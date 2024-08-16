@@ -1,18 +1,5 @@
 @model ShoppingCartVM
 
-<partial name="_StatusMessage" model='TempData["success"]' />
-
-@if (ViewBag.Errors != null && TempData["success"] == null)
-	{
-		<div class="alert alert-danger">
-			<ul>
-				@foreach (var error in ViewBag.Errors as List<string>)
-				{
-					<li>@error</li>
-				}
-			</ul>
-		</div>
-}
 <form method="post" asp-action="Summary">
 	<br />
 	<div class="container">
@@ -30,10 +17,6 @@
 					</div>
 				</div>
 			</div>
-			
-
-			
-
 			<div class="card-body">
 				<div class="container rounded p-2">
 					<div class="row">
@@ -141,8 +124,6 @@
 										</div>
 										<span class="text-muted">@((details.Price * details.Count).ToString("c")) </span>
 									</li>
-
-
 								}
 
 								<li class="list-group-item d-flex justify-content-between bg-light">

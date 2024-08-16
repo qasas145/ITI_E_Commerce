@@ -6,17 +6,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - E commerce</title>
+    <title>@ViewData["Title"] - BulkyBookWeb</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/ITIPROJECT.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BulkyBookWeb.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" />
 </head>
-<style>
-</style>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
@@ -29,17 +27,18 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    @if (User.Identity.IsAuthenticated)
+                    {
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">Home</a>
                         </li>
-            
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Manage Order</a>
+                        </li>
                         @if (User.IsInRole(SD.Role_Admin))
                         {
-                            
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Manage Order</a>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Content Managment
@@ -63,18 +62,18 @@
                                     </li>
                                 </ul>
                             </li>
-                                
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
-                                    @await Component.InvokeAsync("ShoppingCart")
-                                </a>
-                            </li>
                         }
-                               
+                                
+                            <li class="nav-item" >
+                                <a class="nav-link">
+                                @(User.Identity.Name)</a>
+                            </li>
+                            <li class="nav-item text-white">
+                                <a class="nav-link" href="/Identity/Account/Logout" >Logout</a>
+                            </li>
 
                     </ul>
-                    
-                    <partial name="_LoginPartial" />
+                    }
                 </div>
             </div>
         </nav>
@@ -88,7 +87,7 @@
 
     <footer class="border-top footer bg-primary ">
         <div class="text-center">
-            ASP .NET © Project  | Muhammad Elsayed <i class="bi bi-heart-fill"></i> 
+            ASP .NET © Project  | by DEBORAJ ROY amd Made with <i class="bi bi-heart-fill"></i> by DotNetMastery
         </div>
     </footer>
 
