@@ -2,7 +2,6 @@ using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 [Area("Customer")]
 [Authorize]
@@ -25,6 +24,7 @@ public class CartController : Controller
     {
         var claimsIdentity = (ClaimsIdentity)User.Identity;
         var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+        // Console.WriteLine(ca)
         ShoppingCartVM = new() {
             ShoppingCarts = _unitOfWork.ShoppingCart.GetAll(u=>u.ApplicationUserId == userId, includeProperties : "Product"),
             OrderHeader = new(),
@@ -57,7 +57,6 @@ public class CartController : Controller
 			ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
             ShoppingCartVM.OrderHeader.ApplicaionUserId = ShoppingCartVM.OrderHeader.ApplicationUser.Id;
 
-            // ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now.Date;  // it won't be passed to th post view because it's not in the html file as a asp-for 
 			ShoppingCartVM.OrderHeader.Name = ShoppingCartVM.OrderHeader.ApplicationUser.Name;
 			ShoppingCartVM.OrderHeader.PhoneNumber = ShoppingCartVM.OrderHeader.ApplicationUser.PhoneNumber;
 			ShoppingCartVM.OrderHeader.StreetAddress = ShoppingCartVM.OrderHeader.ApplicationUser.StreetAddress;
@@ -67,56 +66,21 @@ public class CartController : Controller
 			ShoppingCartVM.OrderHeader.PostalCode = ShoppingCartVM.OrderHeader.ApplicationUser.PostalCode;
 
 
+
 			foreach (var cart in ShoppingCartVM.ShoppingCarts)
 			{
 				cart.Price = GetPriceBasedOnQuantity(cart);
 				ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
 			}
-
-             // Retrieve and convert errors from TempData
-            if (TempData["errors"] is string errorsString)
-            {
-                var errorsList = errorsString.Split(new[] { ", " }, StringSplitOptions.None).ToList();
-                ViewBag.Errors = errorsList;
-            }
-
 			return View(ShoppingCartVM);
     }	
     [HttpPost]	
     public IActionResult Summary(ShoppingCartVM shoppingCartVM ) { // it won't pass the shopping cart's because i havn't make it asp-for in the index.html
-
-        
-        var errors = new List<string>();
-        if (ModelState.IsValid) {
-            if ( shoppingCartVM.OrderHeader.OrderTotal != 0) {
-
-                shoppingCartVM.OrderHeader.OrderDate = DateTime.Now.Date;
-                // this related to the one who will use the app (it's customized)
-                shoppingCartVM.OrderHeader.ShippingDate = DateTime.Now.AddDays(2);
-                shoppingCartVM.OrderHeader.PaymentDueDate = DateTime.Now.AddDays(2);
-
-
+        if (shoppingCartVM.OrderHeader != null && shoppingCartVM.OrderHeader.OrderTotal != 0) {
                 _unitOfWork.OrderHeader.Add(shoppingCartVM.OrderHeader);
                 _unitOfWork.Save();
-                TempData["success"] = "The order has been made sucessfully ";
-                TempData.Remove("errors");  
-                _logger.LogInformation("The order has been made sucessfully.");
-            }
-            else {
-                errors.Add("There's no orders to add .");
-            }
+                TempData["sucess"] = "The order has been made sucessfully ";
         }
-        
-        else {
-            foreach(var obj in ModelState.Values) {
-                foreach (var error in obj.Errors)
-                {
-                    errors.Add(error.ErrorMessage);
-                    ModelState.AddModelError(string.Empty, error.ErrorMessage);
-                }
-            }
-        }
-        TempData["errors"] = string.Join(", ", errors);
         return RedirectToAction("Summary");
     }
     public IActionResult Plus(int cartId)
@@ -185,4 +149,9 @@ public class CartController : Controller
         }
     }
 
+    // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    // public IActionResult Error()
+    // {
+    //     return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    // }
 }
