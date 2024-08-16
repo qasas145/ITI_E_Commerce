@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 public class OrderHeader{
 
 
-    [Key]
-    public int Id {get;set;}
+        [Key]
+        public int Id {get;set;}
 
-    public string ApplicaionUserId{get;set;}
-    [ForeignKey("ApplicaionUserId")]
+        public string ApplicaionUserId{get;set;}
+        [ForeignKey("ApplicaionUserId")]
 
-    [ValidateNever]
-    public ApplicationUser ApplicationUser {get;set;}
+        [ValidateNever]
+        public ApplicationUser ApplicationUser {get;set;}
 
     
         public DateTime OrderDate { get; set; }

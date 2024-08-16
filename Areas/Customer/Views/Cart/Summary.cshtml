@@ -1,7 +1,6 @@
 @model ShoppingCartVM
 
-
-<form method="post">
+<form method="post" asp-action="Summary">
 	<br />
 	<div class="container">
 		<div class="card shadow border-0">
@@ -27,6 +26,17 @@
 									<span class="text-info">Shipping Details:</span>
 								</h4>
 							</div>
+
+							<div class="row my-1">
+								<div class="col-3">
+									<label>Id</label>
+								</div>
+								<div class="col-9">
+									<input asp-for="OrderHeader.ApplicaionUserId" class="form-control" />
+									<span asp-validation-for="OrderHeader.ApplicaionUserId" class="text-danger"></span>
+								</div>
+							</div>
+
 							<div class="row my-1">
 								<div class="col-3">
 									<label>Name</label>
@@ -79,6 +89,24 @@
 								<div class="col-9">
 									<input asp-for="OrderHeader.PostalCode" class="form-control" />
 									<span asp-validation-for="OrderHeader.PostalCode" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1" style="display: none;">
+								<div class="col-3">
+									<label>Postal Code</label>
+								</div>
+								<div class="col-9">
+									<input asp-for="OrderHeader.OrderTotal" class="form-control" />
+									<span asp-validation-for="OrderHeader.OrderTotal" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1" style="display: none;">
+								<div class="col-3">
+									<label>Postal Code</label>
+								</div>
+								<div class="col-9">
+									<input asp-for="OrderHeader.OrderStatus" class="form-control" />
+									<span asp-validation-for="OrderHeader.OrderStatus" class="text-danger"></span>
 								</div>
 							</div>
 						</div>
