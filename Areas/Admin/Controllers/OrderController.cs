@@ -32,7 +32,6 @@ public class OrderController : Controller
 
     public IActionResult Details(int orderId)
     {
-        Console.WriteLine("The order id {0}", orderId);
         OrderVM = new()
         {
             OrderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == orderId, includeProperties: "ApplicationUser"),
@@ -125,10 +124,11 @@ public class OrderController : Controller
             _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, SD.StatusCancelled, SD.StatusCancelled);
         }
         _unitOfWork.Save();
-        TempData["success"] = "Order Cancelled Successfully.";
+        TempData["Success"] = "Order Cancelled Successfully.";
         return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
 
     }
+
 
 
     [ActionName("Details")]
@@ -219,6 +219,7 @@ public class OrderController : Controller
         }
         else
         {
+            Console.WriteLine("in the ese");
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -230,8 +231,7 @@ public class OrderController : Controller
         switch (status)
         {
             case "pending":
-            // here it was u.Payment status but i have changed it to Order Status . 
-                objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.PaymentStatusDelayedPayment);
+                objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.PaymentStatusDelayedPayment);
                 break;
             case "inprocess":
                 objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.StatusInProcess);
