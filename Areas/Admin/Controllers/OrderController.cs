@@ -32,6 +32,7 @@ public class OrderController : Controller
 
     public IActionResult Details(int orderId)
     {
+        Console.WriteLine("The order id {0}", orderId);
         OrderVM = new()
         {
             OrderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == orderId, includeProperties: "ApplicationUser"),
@@ -103,6 +104,7 @@ public class OrderController : Controller
     [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
     public IActionResult CancelOrder()
     {
+        Console.WriteLine("we are in the cancal order view ");
 
         var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
 
@@ -124,7 +126,7 @@ public class OrderController : Controller
             _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, SD.StatusCancelled, SD.StatusCancelled);
         }
         _unitOfWork.Save();
-        TempData["Success"] = "Order Cancelled Successfully.";
+        TempData["success"] = "Order Cancelled Successfully.";
         return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
 
     }
@@ -219,7 +221,6 @@ public class OrderController : Controller
         }
         else
         {
-            Console.WriteLine("in the ese");
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -231,7 +232,8 @@ public class OrderController : Controller
         switch (status)
         {
             case "pending":
-                objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.PaymentStatusDelayedPayment);
+            // here it was u.Payment status but i have changed it to Order Status . 
+                objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.PaymentStatusDelayedPayment);
                 break;
             case "inprocess":
                 objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.StatusInProcess);

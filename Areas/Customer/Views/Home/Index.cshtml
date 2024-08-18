@@ -1,5 +1,16 @@
 @model IEnumerable<Product>
 
+@if (TempData["success"] != null) {
+ <div class="alert alert-success alert-dismissible" role="alert">
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	@TempData["success"]
+</div>
+}
+
+
+<partial name="_StatusMessage" model='TempData["success"]' />
+
+
 <div class="row pb-3">
     @foreach (var product in Model)
     {
