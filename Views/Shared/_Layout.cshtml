@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - E commerce</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/BulkyBookWeb.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ITIPROJECT.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 
@@ -16,10 +16,6 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" />
 </head>
 <style>
-    .nav-link:focus {
-        cursor: pointer;
-    }
-
 </style>
 <body>
     <header>
@@ -70,20 +66,16 @@
                                 </ul>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                                @await Component.InvokeAsync("ShoppingCart")
+                            </a>
+                        </li>
                                
 
                     </ul>
-                    <ul class="navbar-nav">
-                         
-                            <li class="nav-item" >
-                                <a class="nav-link">
-                                    Hello <span class="text-white" style="font-weight: 600;text-transform: uppercase;">@(User.Identity.Name)</span>
-                                </a>
-                            </li>
-                            <li class="nav-item text-white">
-                                <a class="nav-link" href="/Identity/Account/Logout" >Logout</a>
-                            </li>
-                    </ul>
+                    
+                    <partial name="_LoginPartial" />
                     }
                 </div>
             </div>
