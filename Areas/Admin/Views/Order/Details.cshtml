@@ -1,4 +1,7 @@
 @model OrderVM
+
+<partial name="_StatusMessage" model='TempData["success"]' />
+
 <form method="post">
     <input asp-for="OrderHeader.Id" hidden />
     <br />
