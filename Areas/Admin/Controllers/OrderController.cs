@@ -104,7 +104,6 @@ public class OrderController : Controller
     [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
     public IActionResult CancelOrder()
     {
-        Console.WriteLine("we are in the cancal order view ");
 
         var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
 
@@ -130,7 +129,6 @@ public class OrderController : Controller
         return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
 
     }
-
 
 
     [ActionName("Details")]
