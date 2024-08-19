@@ -62,7 +62,7 @@ public class OrderController : Controller
         _unitOfWork.OrderHeader.Update(orderHeaderFromDb);
         _unitOfWork.Save();
 
-        TempData["Success"] = "Order Details Updated Successfully.";
+        TempData["success"] = "Order Details Updated Successfully.";
 
 
         return RedirectToAction(nameof(Details), new { orderId = orderHeaderFromDb.Id });
@@ -75,7 +75,7 @@ public class OrderController : Controller
     {
         _unitOfWork.OrderHeader.UpdateStatus(OrderVM.OrderHeader.Id, SD.StatusInProcess);
         _unitOfWork.Save();
-        TempData["Success"] = "Order Details Updated Successfully.";
+        TempData["success"] = "Order Details Updated Successfully.";
         return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
     }
 
@@ -96,7 +96,7 @@ public class OrderController : Controller
 
         _unitOfWork.OrderHeader.Update(orderHeader);
         _unitOfWork.Save();
-        TempData["Success"] = "Order Shipped Successfully.";
+        TempData["success"] = "Order Shipped Successfully.";
         return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
     }
     [HttpPost]

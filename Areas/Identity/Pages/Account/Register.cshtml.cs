@@ -99,12 +99,6 @@ public class RegisterModel : PageModel {
 
     public async Task OnGetAsync(string returnUrl = null) {
         
-        // another type to get the companies list
-        /*
-        foreach(var item in _db.Companies.Select(i=>i.Name).Select(i=> new {name = i})){
-            Console.WriteLine(item);
-        };
-        */
 
         Input = new()
             {
@@ -142,10 +136,6 @@ public class RegisterModel : PageModel {
 
             
             var result = await _userManager.CreateAsync(user,Input.Password);
-            foreach (var item in result.Errors)
-            {
-                Console.WriteLine(item.Description);
-            }
             if (result.Succeeded) {
                     _logger.LogInformation("User created a new account with password.");
 
@@ -165,6 +155,7 @@ public class RegisterModel : PageModel {
                     else {
                         await _signInManager.SignInAsync(user, isPersistent:false);
                     }
+                    TempData["success"] = "User created successfully";
                     LocalRedirect(returnUrl);
 
             }
@@ -185,14 +176,6 @@ public class RegisterModel : PageModel {
             }
 
 
-        }
-        foreach (var item in ModelState.Values)
-        {
-            foreach (var item1 in item.Errors)
-            {
-                
-            Console.WriteLine(item1.ErrorMessage);   
-            }
         }
         Input.RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
         {
