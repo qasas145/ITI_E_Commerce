@@ -29,8 +29,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @if (User.Identity.IsAuthenticated)
-                    {
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">Home</a>
@@ -65,18 +63,18 @@
                                     </li>
                                 </ul>
                             </li>
+                                
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                                    @await Component.InvokeAsync("ShoppingCart")
+                                </a>
+                            </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
-                                @await Component.InvokeAsync("ShoppingCart")
-                            </a>
-                        </li>
                                
 
                     </ul>
                     
                     <partial name="_LoginPartial" />
-                    }
                 </div>
             </div>
         </nav>
