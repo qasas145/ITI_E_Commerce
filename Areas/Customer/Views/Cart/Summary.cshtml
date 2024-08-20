@@ -1,5 +1,16 @@
 @model ShoppingCartVM
 
+<partial name="_StatusMessage" model='TempData["success"]' />
+
+@if(TempData["errors"] != null && TempData["success"] == null) {
+	foreach(var item in TempData["errors"].ToString().Split(",")) {
+		<div class="alert alert-danger alert-dismissible" role="alert">
+        	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        	@item
+    </div>
+	};
+}
+
 <form method="post" asp-action="Summary">
 	<br />
 	<div class="container">
