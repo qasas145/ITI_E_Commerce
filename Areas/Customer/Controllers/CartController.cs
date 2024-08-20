@@ -76,10 +76,27 @@ public class CartController : Controller
     }	
     [HttpPost]	
     public IActionResult Summary(ShoppingCartVM shoppingCartVM ) { // it won't pass the shopping cart's because i havn't make it asp-for in the index.html
-        if (shoppingCartVM.OrderHeader != null && shoppingCartVM.OrderHeader.OrderTotal != 0) {
+
+        List<string> errors = [];
+        if (ModelState.IsValid) {
+            if ( shoppingCartVM.OrderHeader.OrderTotal != 0) {
                 _unitOfWork.OrderHeader.Add(shoppingCartVM.OrderHeader);
                 _unitOfWork.Save();
-                TempData["sucess"] = "The order has been made sucessfully ";
+                TempData["success"] = "The order has been made sucessfully ";
+            }
+            else {
+                TempData["errors"] = "There's no order to add ";
+            }
+        }
+        else {
+            foreach (var item in ModelState.Values)
+            {
+                foreach(var error in item.Errors) {
+                    errors.Add(error.ErrorMessage);
+                }
+            }
+            var str = String.Join(",", errors);
+            TempData["errors"] = str;
         }
         return RedirectToAction("Summary");
     }
@@ -149,9 +166,4 @@ public class CartController : Controller
         }
     }
 
-    // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    // public IActionResult Error()
-    // {
-    //     return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    // }
 }
