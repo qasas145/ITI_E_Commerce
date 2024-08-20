@@ -34,14 +34,9 @@ public class DbInitializer : IDbInitializer {
                 PhoneNumber = "01708119559",
                 Name = "Muhammad elsayed "
             }, "Admin1234@").GetAwaiter().GetResult();
-            foreach (var item in res.Errors)
-            {
-                Console.WriteLine(item.Description);
-            }
 
 
-            ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u=>u.Email == "mohamed.sayed14527@yahoo.com");
-            Console.WriteLine("Teh usrer email is {0}", user.Email);
+            ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u=>u.Email == "mohamed@yahoo.com");
             _userManager.AddToRoleAsync(user, "Admin").GetAwaiter().GetResult();
         }
 
