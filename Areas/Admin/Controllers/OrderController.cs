@@ -231,7 +231,7 @@ public class OrderController : Controller
         switch (status)
         {
             case "pending":
-                objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.PaymentStatusDelayedPayment);
+                objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.PaymentStatusDelayedPayment);
                 break;
             case "inprocess":
                 objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.StatusInProcess);
