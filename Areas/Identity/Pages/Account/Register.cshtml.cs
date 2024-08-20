@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
@@ -156,7 +157,7 @@ public class RegisterModel : PageModel {
                         await _signInManager.SignInAsync(user, isPersistent:false);
                     }
                     TempData["success"] = "User created successfully";
-                    LocalRedirect(returnUrl);
+                    return LocalRedirect(returnUrl);
 
             }
             
