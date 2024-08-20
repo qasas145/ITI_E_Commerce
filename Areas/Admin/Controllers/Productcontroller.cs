@@ -43,20 +43,6 @@ public class ProductController : Controller{
         [HttpPost]
 
         public IActionResult UpSert(ProductVM productVM, List<IFormFile> files) {
-            // productVM.Product.ProductImages = 
-            foreach(var item in files) {
-                Console.WriteLine(item.FileName);
-            }
-            // foreach(var item in productVM.Product.ProductImages) {
-            //     Console.WriteLine(item);
-            // }
-            Console.WriteLine("The author is "+productVM.Product.Author);
-            foreach(var item in ModelState.Values) {
-                foreach(var item1 in 
-                item.Errors) {
-                    Console.WriteLine(item1.ErrorMessage);
-                }
-            }
             if (ModelState.IsValid) {
                 Console.WriteLine("The model is calud ");
                 if (productVM.Product.Id==0)
@@ -80,7 +66,7 @@ public class ProductController : Controller{
                     foreach (IFormFile file in files)
                     {
                         string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                        string productPath = @"images\products\product-" + productVM.Product.Id;
+                        string productPath = @"images/products/product-" + productVM.Product.Id;
                         string finalPath = Path.Combine(wwwRootPath, productPath);
 
                         if (!Directory.Exists(finalPath))
@@ -93,7 +79,7 @@ public class ProductController : Controller{
 
                         ProductImage productImage = new()
                         {
-                            ImageUrl = @"\" + productPath + @"\" + fileName,
+                            ImageUrl = @"/" + productPath + @"/" + fileName,
                             ProductId = productVM.Product.Id,
                         };
 
