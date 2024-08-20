@@ -62,14 +62,14 @@ app.UseRouting();
 
 app.UseAuthentication();// this must be above the below one 
 app.UseAuthorization();
- app.UseSession();
+app.UseSession();
 
 SeedDatabase();
 app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area=Customer}/{controller=Cart}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 
