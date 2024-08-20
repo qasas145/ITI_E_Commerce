@@ -1,6 +1,6 @@
 # ASP.NET Core MVC - E-commerce Project [.NET 8]
 
-This repository contains code and resources for the **.NET Core MVC - The Complete Guide 2023 [E-commerce]** 
+This repository contains code and resources for the **.NET Core MVC - [E-commerce]** 
 
 
 ## Keys 
