@@ -82,7 +82,7 @@ public class RegisterModel : PageModel {
         [Compare("Password", ErrorMessage ="The password arn't the same ")]
         public string ConfirmPassword{get;set;}
 
-        public string Role { get; set; }
+        public string? Role { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> RoleList { get; set; }
 
@@ -130,7 +130,7 @@ public class RegisterModel : PageModel {
             user.PostalCode = Input.PostalCode;
             user.State = Input.State;
             user.StreetAddress = Input.StreetAddress;
-            if (Input.Role.ToLower() == "company") {
+            if (Input.Role == SD.Role_Company) {
                 user.CompanyId = Input.CompanyId;
             }
 
@@ -164,18 +164,6 @@ public class RegisterModel : PageModel {
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
-        }
-        else {
-
-            foreach (var item in ModelState.Values)
-            {
-                foreach (var item1 in item.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, item1.ErrorMessage);
-                }
-            }
-
-
         }
         Input.RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
         {
