@@ -15,3 +15,11 @@ This repository contains code and resources for the **.NET Core MVC - [E-commerc
 - Manage roles within ASP.NET Core Identity
 - Apply Repository Pattern for database access and automate seed database migrations
 - Deployment on Microsoft Azure
+
+## Requirements
+ - Docker
+## Usage
+ - git clone git@github.com:qasas145/ITI_E_Commerce.git
+ - go to the project path
+ - docker compose up 
+ - paste this url into the browser http://localhost:8080/
