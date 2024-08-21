@@ -5,7 +5,7 @@ services:
     image : mcr.microsoft.com/mssql/server:2022-latest
     container_name : iti_database
     environment : 
-      MSSQL_SA_PASSWORD: 'Hamada1020'
+      MSSQL_SA_PASSWORD: 'your password and take care that this password is which you will put it in the default connection'
       ACCEPT_EULA: 'Y'
     ports:
       - '1433:1433'
