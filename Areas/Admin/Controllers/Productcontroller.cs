@@ -66,7 +66,7 @@ public class ProductController : Controller{
                     foreach (IFormFile file in files)
                     {
                         string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                        string productPath = @"images/products/product-" + productVM.Product.Id;
+                        string productPath = @"images/products/product-" + productVM.Product.Id; // if you want for windows then replace the / with \ 
                         string finalPath = Path.Combine(wwwRootPath, productPath);
 
                         if (!Directory.Exists(finalPath))
