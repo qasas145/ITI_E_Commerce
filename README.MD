@@ -13,7 +13,7 @@ This repository contains code and resources for the **.NET Core MVC - [E-commerc
 - Explore sessions, custom tag helpers, view components, and partial views in ASP.NET Core
 - Utilize Bootstrap v5 for UI development
 - Manage roles within ASP.NET Core Identity
-- Apply Repository Pattern for database access and automate seed database migrations
+- Apply Repository Pattern for database access and automate seed daUtabase migrations
 - Deployment on Microsoft Azure
 
 ## Requirements
@@ -22,6 +22,6 @@ This repository contains code and resources for the **.NET Core MVC - [E-commerc
  - git clone git@github.com:qasas145/ITI_E_Commerce.git
  - go to the project path
  - open docker-compose.yml and put your password in MSSQL_SA_PASSWORD
- - put this password in the appsettings.json instead of ###your password in the ###DefaultConnection
+ - put this password in the appsettings.json instead of (your password) in the (DefaultConnection)
  - docker compose up 
  - paste this url into the browser http://localhost:8080/
