@@ -21,5 +21,7 @@ This repository contains code and resources for the **.NET Core MVC - [E-commerc
 ## Usage
  - git clone git@github.com:qasas145/ITI_E_Commerce.git
  - go to the project path
+ - open docker-compose.yml and put your password in MSSQL_SA_PASSWORD
+ - put this password in the appsettings.json instead of ###your password in the ###DefaultConnection
  - docker compose up 
  - paste this url into the browser http://localhost:8080/
